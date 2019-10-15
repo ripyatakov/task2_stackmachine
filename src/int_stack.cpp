@@ -20,44 +20,52 @@ namespace xi {
 
 // TODO: add method definitions here
 
-    IntStack::IntStack(size_t sz) {
+    IntStack::IntStack(size_t sz) 
+    {
         _ssize = sz;
         _stack = new int[_ssize];
         _head = 0;
 
     }
 
-    void IntStack::push(int el) {
+    void IntStack::push(int el) 
+    {
         if (_head == _ssize)
             throw std::logic_error("Stack is overflow");
         _stack[_head++] = el;
     }
 
-    int IntStack::pop() {
+    int IntStack::pop() 
+    {
         if (_head == 0)
             throw std::logic_error("Stack is empty");
         return _stack[--_head];
     }
 
-    int IntStack::top() {
+    int IntStack::top() 
+    {
         if (_head == 0)
             throw std::logic_error("Stack is empty");
         return _stack[_head-1];
     }
 
-    void IntStack::clear() {
+    void IntStack::clear() 
+    {
         _head = 0;
     }
 
-    bool IntStack::isEmpty() const {
+    bool IntStack::isEmpty() const 
+    {
         return (_head == 0);
     }
 
-    bool IntStack::isFull() const {
+    bool IntStack::isFull() const 
+    {
         return (_head >= _ssize);
     }
 
-    IntStack::~IntStack() {
+    IntStack::~IntStack() 
+    {
         delete[] _stack;
     }
 } // namespace xi
