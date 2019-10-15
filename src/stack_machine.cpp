@@ -23,7 +23,8 @@ namespace xi {
 //==============================================================================
 
 // TODO: if you need any free functions, add their definitions here.
-std::vector<std::string> getTokens(const std::string &expr){
+std::vector<std::string> getTokens(const std::string &expr)
+{
     std::vector<std::string> answs;
     std::string buff = "";
         for (int i = 0; i < expr.size(); ++i) {
@@ -38,14 +39,18 @@ std::vector<std::string> getTokens(const std::string &expr){
         answs.push_back(buff);
         return answs;
 }
-bool isOperation(const std::string token){
+    
+bool isOperation(const std::string token)
+{
     if (token.size() != 1)
         return false;
     if (token[0] >= '0' && token[0] <= '9')
         return false;
     return true;
 }
-bool isNumber(const std::string str){
+    
+bool isNumber(const std::string str)
+{
     bool answ = true;
     for (int i = 0; i < str.size(); ++i) {
         answ = answ && (str[i] >= '0' && str[i] <= '9');
@@ -74,7 +79,8 @@ IOperation::Arity PlusOp::getArity() const
 //==============================================================================
 // class InverOp
 //==============================================================================
-    int InverOp::operation(char op, int a, int /*b*/, int /*c*/) {
+    int InverOp::operation(char op, int a, int /*b*/, int /*c*/) 
+    {
         if(op != '~')
             throw std::logic_error("Operation other than Inver (~) are not supported");
 
@@ -82,14 +88,16 @@ IOperation::Arity PlusOp::getArity() const
         return ~a;
     }
 
-    IOperation::Arity InverOp::getArity() const {
+    IOperation::Arity InverOp::getArity() const 
+    {
         return arUno;
     }
 
 //==============================================================================
 // class AndOp
 //==============================================================================
-    int AndOp::operation(char op, int a, int b, int /*c*/) {
+    int AndOp::operation(char op, int a, int b, int /*c*/) 
+    {
         if(op != '&')
             throw std::logic_error("Operation other than And (&) are not supported");
 
@@ -97,14 +105,16 @@ IOperation::Arity PlusOp::getArity() const
         return a&b;
     }
 
-    IOperation::Arity AndOp::getArity() const {
+    IOperation::Arity AndOp::getArity() const 
+    {
         return arDue;
     }
 
 //==============================================================================
 // class PowOp
 //==============================================================================
-    int PowOp::operation(char op, int a, int b, int /*c*/) {
+    int PowOp::operation(char op, int a, int b, int /*c*/) 
+    {
         if(op != '^')
             throw std::logic_error("Operation other than Pow (^) are not supported");
 
@@ -116,7 +126,8 @@ IOperation::Arity PlusOp::getArity() const
         return pow;
     }
 
-    IOperation::Arity PowOp::getArity() const {
+    IOperation::Arity PowOp::getArity() const 
+    {
         return arDue;
     }
 
@@ -124,20 +135,23 @@ IOperation::Arity PlusOp::getArity() const
 // class StackMachine
 //==============================================================================
 
-void StackMachine::registerOperation(char symb, xi::IOperation *oper) {
+void StackMachine::registerOperation(char symb, xi::IOperation *oper) 
+{
     SymbolToOperMapConstIter it = _opers.find(symb);
     if (it != _opers.end())
         throw std::logic_error("An operation if already reg...");
     _opers[symb] = oper;
 
 }
-IOperation* StackMachine::getOperation(char symb) {
+IOperation* StackMachine::getOperation(char symb) 
+{
     SymbolToOperMapConstIter it = _opers.find(symb);
     if (it == _opers.end())
         return nullptr;
     return _opers[symb];
 }
-int StackMachine::calculate(const std::string &expr, bool clearStack) {
+int StackMachine::calculate(const std::string &expr, bool clearStack) 
+{
     if (clearStack)
         _s.clear();
     std::vector<std::string> tokens = getTokens(expr);
